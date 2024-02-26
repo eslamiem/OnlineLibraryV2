@@ -6,7 +6,7 @@ using OnlineLibrary.Models;
 
 namespace OnlineLibrary.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<CustomUser, CustomRole, string>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -21,8 +21,8 @@ public class ApplicationDbContext : IdentityDbContext
 
         // Use seed method here
         SeedUsersRoles seedUsersRoles = new();
-        builder.Entity<IdentityRole>().HasData(seedUsersRoles.Roles);
-        builder.Entity<IdentityUser>().HasData(seedUsersRoles.Users);
+        builder.Entity<CustomRole>().HasData(seedUsersRoles.Roles);
+        builder.Entity<CustomUser>().HasData(seedUsersRoles.Users);
         builder.Entity<IdentityUserRole<string>>().HasData(seedUsersRoles.UserRoles);
 
         builder.Entity<Book>().ToTable("Book");

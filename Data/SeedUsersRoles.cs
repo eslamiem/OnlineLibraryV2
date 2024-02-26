@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using OnlineLibrary.Models;
 
 namespace OnlineLibrary.Data;
 public class SeedUsersRoles
 {
-    private readonly List<IdentityRole> _roles;
-    private readonly List<IdentityUser> _users;
+    private readonly List<CustomRole> _roles;
+    private readonly List<CustomUser> _users;
     private readonly List<IdentityUserRole<string>> _userRoles;
 
     public SeedUsersRoles()
@@ -17,52 +18,62 @@ public class SeedUsersRoles
         _users = GetUsers();
         _userRoles = GetUserRoles(_users, _roles);
     }
-    public List<IdentityRole> Roles { get { return _roles; } }
-    public List<IdentityUser> Users { get { return _users; } }
+    public List<CustomRole> Roles { get { return _roles; } }
+    public List<CustomUser> Users { get { return _users; } }
     public List<IdentityUserRole<string>> UserRoles { get { return _userRoles; } }
-    private List<IdentityRole> GetRoles()
+    private List<CustomRole> GetRoles()
     {
         // Seed Roles
-        var adminRole = new IdentityRole("Admin");
+        var adminRole = new CustomRole("Admin");
         adminRole.NormalizedName = adminRole.Name!.ToUpper();
-        var memberRole = new IdentityRole("Member");
+        adminRole.Description = "Administrator Role";
+        adminRole.CreatedDate = DateTime.Now;
+
+        var memberRole = new CustomRole("Member");
         memberRole.NormalizedName = memberRole.Name!.ToUpper();
-        List<IdentityRole> roles = new List<IdentityRole>() {
+        memberRole.Description = "Member Role";
+        memberRole.CreatedDate = DateTime.Now;
+
+        List<CustomRole> roles = new List<CustomRole>() {
             adminRole,
             memberRole
       };
         return roles;
     }
-    private List<IdentityUser> GetUsers()
+    private List<CustomUser> GetUsers()
     {
         string pwd = "P@$$w0rd";
-        var passwordHasher = new PasswordHasher<IdentityUser>();
+        var passwordHasher = new PasswordHasher<CustomUser>();
         // Seed Users
-        var adminUser = new IdentityUser
+        var adminUser = new CustomUser
         {
             UserName = "aa@aa.aa",
             Email = "aa@aa.aa",
             EmailConfirmed = true,
+            FirstName = "Adam",
+            LastName = "Smith"
         };
         adminUser.NormalizedUserName = adminUser.UserName.ToUpper();
         adminUser.NormalizedEmail = adminUser.Email.ToUpper();
         adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, pwd);
-        var memberUser = new IdentityUser
+        var memberUser = new CustomUser
         {
             UserName = "mm@mm.mm",
             Email = "mm@mm.mm",
             EmailConfirmed = true,
+            FirstName = "Mary",
+            LastName = "Martin"
         };
         memberUser.NormalizedUserName = memberUser.UserName.ToUpper();
         memberUser.NormalizedEmail = memberUser.Email.ToUpper();
         memberUser.PasswordHash = passwordHasher.HashPassword(memberUser, pwd);
-        List<IdentityUser> users = new List<IdentityUser>() {
+        List<CustomUser> users = new List<CustomUser>() {
             adminUser,
             memberUser,
       };
         return users;
     }
-    private List<IdentityUserRole<string>> GetUserRoles(List<IdentityUser> users, List<IdentityRole> roles)
+    private List<IdentityUserRole<string>> GetUserRoles(List<CustomUser> users, List<CustomRole> roles)
     {
         // Seed UserRoles
         List<IdentityUserRole<string>> userRoles = new List<IdentityUserRole<string>>();

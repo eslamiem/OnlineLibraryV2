@@ -14,10 +14,37 @@ namespace OnlineLibrary.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "ApplicationUser",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
@@ -32,7 +59,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", maxLength: 21, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -190,9 +218,9 @@ namespace OnlineLibrary.Data.Migrations
                 {
                     table.PrimaryKey("PK_BookTransaction", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookTransaction_AspNetUsers_UserId",
+                        name: "FK_BookTransaction_ApplicationUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -205,20 +233,20 @@ namespace OnlineLibrary.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "233bea0a-2f60-4c7f-affc-1a55e8f142f4", null, "Admin", "ADMIN" },
-                    { "6255d7b5-71fe-45b3-b3ab-fdba92eaff61", null, "Member", "MEMBER" }
+                    { "60182f84-4a69-490b-9159-02657683eafe", null, new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9440), "Administrator Role", "Admin", "ADMIN" },
+                    { "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8", null, new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9490), "Member Role", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1c58ed64-8e5b-4f88-812a-a82fe373d078", 0, "a86dad95-b7f1-4970-8a35-6177ac35e0cd", "IdentityUser", "mm@mm.mm", true, false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAECBa69a41cBBKRJxb/9RZkwzvg/nMO3X31DWa9RRgcMA3giOSeFGqlYE5eLGvEKX4w==", null, false, "21850680-74f9-47c0-8abd-a29c297f36dc", false, "mm@mm.mm" },
-                    { "966867f5-8279-4d53-8a21-0a5d154ea61b", 0, "66d1cfa7-8546-4eea-ad31-eb37dd8d05d0", "IdentityUser", "aa@aa.aa", true, false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEM0xUfL9ljMqlLH0udFXtRLFo5jWhJGvuDooXS7i1zzvRhwy0cxF/Zvi5JrWxXuFxw==", null, false, "952016f8-484d-46fd-9130-f7053a8afb53", false, "aa@aa.aa" }
+                    { "3ffd4ba2-8fd2-4880-ada4-b401638c8819", 0, "c4cb2058-d79d-4141-8473-ffa9e9e07656", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAELT9z0bUSu6V+ne9V2jFsOvNMM4W5Kof7rlNm1HSszpChIiRsm5xHmpjjbWHK2d1pQ==", null, false, "dfc06344-08cd-447c-9600-d08489fde2eb", false, "mm@mm.mm" },
+                    { "5062ef3f-cfc1-4aa4-93c6-4aa086b93588", 0, "7065a878-7c87-407a-8f3c-e1f569aafbb4", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEFoZIQ6sCw8kOzncONzFAT7FzPlgMAfkxSMW3B75mY5+vcbO5KxyR3au95HWv41EHQ==", null, false, "937732f6-3b3c-4036-be5a-e6d938490b77", false, "aa@aa.aa" }
                 });
 
             migrationBuilder.InsertData(
@@ -238,8 +266,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "6255d7b5-71fe-45b3-b3ab-fdba92eaff61", "1c58ed64-8e5b-4f88-812a-a82fe373d078" },
-                    { "233bea0a-2f60-4c7f-affc-1a55e8f142f4", "966867f5-8279-4d53-8a21-0a5d154ea61b" }
+                    { "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8", "3ffd4ba2-8fd2-4880-ada4-b401638c8819" },
+                    { "60182f84-4a69-490b-9159-02657683eafe", "5062ef3f-cfc1-4aa4-93c6-4aa086b93588" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -316,6 +344,9 @@ namespace OnlineLibrary.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationUser");
 
             migrationBuilder.DropTable(
                 name: "Book");

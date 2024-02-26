@@ -17,46 +17,6 @@ namespace OnlineLibrary.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "233bea0a-2f60-4c7f-affc-1a55e8f142f4",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "6255d7b5-71fe-45b3-b3ab-fdba92eaff61",
-                            Name = "Member",
-                            NormalizedName = "MEMBER"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -78,113 +38,6 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "966867f5-8279-4d53-8a21-0a5d154ea61b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "66d1cfa7-8546-4eea-ad31-eb37dd8d05d0",
-                            Email = "aa@aa.aa",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "AA@AA.AA",
-                            NormalizedUserName = "AA@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM0xUfL9ljMqlLH0udFXtRLFo5jWhJGvuDooXS7i1zzvRhwy0cxF/Zvi5JrWxXuFxw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "952016f8-484d-46fd-9130-f7053a8afb53",
-                            TwoFactorEnabled = false,
-                            UserName = "aa@aa.aa"
-                        },
-                        new
-                        {
-                            Id = "1c58ed64-8e5b-4f88-812a-a82fe373d078",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a86dad95-b7f1-4970-8a35-6177ac35e0cd",
-                            Email = "mm@mm.mm",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MM@MM.MM",
-                            NormalizedUserName = "MM@MM.MM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECBa69a41cBBKRJxb/9RZkwzvg/nMO3X31DWa9RRgcMA3giOSeFGqlYE5eLGvEKX4w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "21850680-74f9-47c0-8abd-a29c297f36dc",
-                            TwoFactorEnabled = false,
-                            UserName = "mm@mm.mm"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -251,13 +104,13 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "966867f5-8279-4d53-8a21-0a5d154ea61b",
-                            RoleId = "233bea0a-2f60-4c7f-affc-1a55e8f142f4"
+                            UserId = "5062ef3f-cfc1-4aa4-93c6-4aa086b93588",
+                            RoleId = "60182f84-4a69-490b-9159-02657683eafe"
                         },
                         new
                         {
-                            UserId = "1c58ed64-8e5b-4f88-812a-a82fe373d078",
-                            RoleId = "6255d7b5-71fe-45b3-b3ab-fdba92eaff61"
+                            UserId = "3ffd4ba2-8fd2-4880-ada4-b401638c8819",
+                            RoleId = "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8"
                         });
                 });
 
@@ -280,6 +133,58 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("OnlineLibrary.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUser");
                 });
 
             modelBuilder.Entity("OnlineLibrary.Models.Book", b =>
@@ -377,16 +282,167 @@ namespace OnlineLibrary.Data.Migrations
                     b.ToTable("BookTransaction", (string)null);
                 });
 
-            modelBuilder.Entity("OnlineLibrary.Models.ApplicationUser", b =>
+            modelBuilder.Entity("OnlineLibrary.Models.CustomRole", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "60182f84-4a69-490b-9159-02657683eafe",
+                            CreatedDate = new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9440),
+                            Description = "Administrator Role",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8",
+                            CreatedDate = new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9490),
+                            Description = "Member Role",
+                            Name = "Member",
+                            NormalizedName = "MEMBER"
+                        });
+                });
+
+            modelBuilder.Entity("OnlineLibrary.Models.CustomUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5062ef3f-cfc1-4aa4-93c6-4aa086b93588",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7065a878-7c87-407a-8f3c-e1f569aafbb4",
+                            Email = "aa@aa.aa",
+                            EmailConfirmed = true,
+                            FirstName = "Adam",
+                            LastName = "Smith",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AA@AA.AA",
+                            NormalizedUserName = "AA@AA.AA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFoZIQ6sCw8kOzncONzFAT7FzPlgMAfkxSMW3B75mY5+vcbO5KxyR3au95HWv41EHQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "937732f6-3b3c-4036-be5a-e6d938490b77",
+                            TwoFactorEnabled = false,
+                            UserName = "aa@aa.aa"
+                        },
+                        new
+                        {
+                            Id = "3ffd4ba2-8fd2-4880-ada4-b401638c8819",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c4cb2058-d79d-4141-8473-ffa9e9e07656",
+                            Email = "mm@mm.mm",
+                            EmailConfirmed = true,
+                            FirstName = "Mary",
+                            LastName = "Martin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MM@MM.MM",
+                            NormalizedUserName = "MM@MM.MM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELT9z0bUSu6V+ne9V2jFsOvNMM4W5Kof7rlNm1HSszpChIiRsm5xHmpjjbWHK2d1pQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "dfc06344-08cd-447c-9600-d08489fde2eb",
+                            TwoFactorEnabled = false,
+                            UserName = "mm@mm.mm"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("OnlineLibrary.Models.CustomRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -395,7 +451,7 @@ namespace OnlineLibrary.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OnlineLibrary.Models.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -404,7 +460,7 @@ namespace OnlineLibrary.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OnlineLibrary.Models.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -413,13 +469,13 @@ namespace OnlineLibrary.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("OnlineLibrary.Models.CustomRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OnlineLibrary.Models.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -428,7 +484,7 @@ namespace OnlineLibrary.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OnlineLibrary.Models.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

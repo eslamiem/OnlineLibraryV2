@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineLibrary.Data;
+using OnlineLibrary.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
+
+// builder.Services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+builder.Services.AddIdentity<CustomUser, CustomRole>(
 options => {
     options.Stores.MaxLengthForKeys = 128;
     // options.Password.RequiredLength = 8;
@@ -23,7 +27,7 @@ options => {
     // options.Password.RequireDigit = true;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
-.AddRoles<IdentityRole>()
+.AddRoles<CustomRole>()
 .AddDefaultUI()
 .AddDefaultTokenProviders();
 
