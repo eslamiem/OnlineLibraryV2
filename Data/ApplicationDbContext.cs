@@ -14,6 +14,8 @@ public class ApplicationDbContext : IdentityDbContext<CustomUser, CustomRole, st
     }
     public DbSet<Book> Books { get; set; }
     public DbSet<BookTransaction> BookTransactions { get; set; }
+    public DbSet<CustomRole> CustomRoles { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

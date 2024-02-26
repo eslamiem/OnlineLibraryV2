@@ -11,7 +11,6 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +29,9 @@ namespace OnlineLibrary.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<CustomUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUserRoleStore<CustomRole> _userRoleStore;
+        private readonly Data.ApplicationDbContext _context;
+
 
         public RegisterModel(
             UserManager<CustomUser> userManager,
@@ -136,11 +138,14 @@ namespace OnlineLibrary.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
+                    //Add "Member" role to the user
+                    await _userManager.AddToRoleAsync(user, "Member");
+                    
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

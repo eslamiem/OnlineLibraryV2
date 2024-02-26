@@ -1,0 +1,62 @@
+@model IEnumerable<OnlineLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">
+                    <h5 class="mb-0">@Html.DisplayNameFor(model => model.Author)</h5>
+                </th>
+                <th style="width: 40%" class="text-center">
+                    <h5 class="mb-0">@Html.DisplayNameFor(model => model.Title)</h5>
+                </th>
+                <th class="text-center">
+                    <h5 class="mb-0">@Html.DisplayNameFor(model => model.YearPublished)</h5>
+                </th>
+                <th class="text-center">
+                    <h5 class="mb-0">@Html.DisplayNameFor(model => model.Quantity)</h5>
+                </th>
+                <th class="text-center">
+                    <h5 class="mb-0">Actions</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var rowCount = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr class="@((rowCount++ % 2 == 0) ? "table-light" : "")">
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td style="max-width: 100px;" class="text-center">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.YearPublished)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm mr-1" asp-action="Edit" asp-route-id="@item.CodeNumber">Edit</a>
+                        <a class="btn btn-info btn-sm mr-1" asp-action="Details" asp-route-id="@item.CodeNumber">Details</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.CodeNumber">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
