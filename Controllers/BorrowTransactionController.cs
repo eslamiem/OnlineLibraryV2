@@ -1,33 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineLibrary.Data;
 using OnlineLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace OnlineLibrary.Controllers
 {
-    public class BookController : Controller
+    public class BorrowTransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BookController(ApplicationDbContext context)
+        public BorrowTransactionController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Book
+        // GET: BorrowTransaction
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Books.ToListAsync());
+            var applicationDbContext = _context.BorrowTransactions.Include(b => b.Book).Include(b => b.Borrower);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Book/Details/5
+        // GET: BorrowTransaction/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +36,45 @@ namespace OnlineLibrary.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .FirstOrDefaultAsync(m => m.CodeNumber == id);
-            if (book == null)
+            var borrowTransaction = await _context.BorrowTransactions
+                .Include(b => b.Book)
+                .Include(b => b.Borrower)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (borrowTransaction == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(borrowTransaction);
         }
 
-        // GET: Book/Create
+        // GET: BorrowTransaction/Create
         public IActionResult Create()
         {
+            ViewData["CodeNumber"] = new SelectList(_context.Books, "CodeNumber", "Author");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Book/Create
+        // POST: BorrowTransaction/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodeNumber,Author,Title,YearPublished,Quantity,Available")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,RentalDate,EndDate,State,CodeNumber,UserId")] BorrowTransaction borrowTransaction)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
+                _context.Add(borrowTransaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            ViewData["CodeNumber"] = new SelectList(_context.Books, "CodeNumber", "Author", borrowTransaction.CodeNumber);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", borrowTransaction.UserId);
+            return View(borrowTransaction);
         }
 
-        // GET: Book/Edit/5
+        // GET: BorrowTransaction/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +82,24 @@ namespace OnlineLibrary.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
+            var borrowTransaction = await _context.BorrowTransactions.FindAsync(id);
+            if (borrowTransaction == null)
             {
                 return NotFound();
             }
-            return View(book);
+            ViewData["CodeNumber"] = new SelectList(_context.Books, "CodeNumber", "Author", borrowTransaction.CodeNumber);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", borrowTransaction.UserId);
+            return View(borrowTransaction);
         }
 
-        // POST: Book/Edit/5
+        // POST: BorrowTransaction/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CodeNumber,Author,Title,YearPublished,Quantity,Available")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RentalDate,EndDate,State,CodeNumber,UserId")] BorrowTransaction borrowTransaction)
         {
-            if (id != book.CodeNumber)
+            if (id != borrowTransaction.Id)
             {
                 return NotFound();
             }
@@ -99,12 +108,12 @@ namespace OnlineLibrary.Controllers
             {
                 try
                 {
-                    _context.Update(book);
+                    _context.Update(borrowTransaction);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.CodeNumber))
+                    if (!BorrowTransactionExists(borrowTransaction.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +124,12 @@ namespace OnlineLibrary.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            ViewData["CodeNumber"] = new SelectList(_context.Books, "CodeNumber", "Author", borrowTransaction.CodeNumber);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", borrowTransaction.UserId);
+            return View(borrowTransaction);
         }
 
-        // GET: Book/Delete/5
+        // GET: BorrowTransaction/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,62 +137,64 @@ namespace OnlineLibrary.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .FirstOrDefaultAsync(m => m.CodeNumber == id);
-            if (book == null)
+            var borrowTransaction = await _context.BorrowTransactions
+                .Include(b => b.Book)
+                .Include(b => b.Borrower)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (borrowTransaction == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(borrowTransaction);
         }
 
-        // POST: Book/Delete/5
+        // POST: BorrowTransaction/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Books.FindAsync(id);
-            if (book != null)
+            var borrowTransaction = await _context.BorrowTransactions.FindAsync(id);
+            if (borrowTransaction != null)
             {
-                _context.Books.Remove(book);
+                _context.BorrowTransactions.Remove(borrowTransaction);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BookExists(int id)
+        private bool BorrowTransactionExists(int id)
         {
-            return _context.Books.Any(e => e.CodeNumber == id);
+            return _context.BorrowTransactions.Any(e => e.Id == id);
         }
 
-
-        // GET: Books/Borrow
+        // GET: Borrowings/Borrow
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Borrow(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            CustomUser? customUser = _context.Users.Find(ClaimTypes.NameIdentifier);
+
             Book? book = await _context.Books.FirstOrDefaultAsync(m => m.CodeNumber == id);
-            
-            if (book == null || userId == null || book.Available == Book.Availability.NotAvailable)
+            if(book == null || customUser == null || book.Available == Book.Availability.NotAvailable)
             {
                 return NotFound();
             }
-            if (book?.Quantity == 0)
+            if(book?.Quantity == 0)
             {
                 return NotFound();
             }
-            BorrowTransaction borrowTransaction = new BorrowTransaction
+            BorrowTransaction borrowTransaction = new BorrowTransaction     
             {
                 Book = book!,
-                // Borrower = userId,
+                Borrower = customUser,
             };
-            if (book?.Available == Book.Availability.NotAvailable)
+            if(book?.Available == Book.Availability.NotAvailable)
             {
                 //TODO: Add view
                 return NotFound();
@@ -194,16 +207,7 @@ namespace OnlineLibrary.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(nameof(Index));
-
-            // if (id == null)
-            // {
-            //     return NotFound();
-            // }
-            // return RedirectToAction("Borrow", "BorrowTransaction",
-            //     new
-            //     {
-            //         Id = id.Value,
-            //     });
         }
     }
+    
 }

@@ -13,8 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<CustomUser, CustomRole, st
     {
     }
     public DbSet<Book> Books { get; set; }
-    public DbSet<BookTransaction> BookTransactions { get; set; }
-    public DbSet<CustomRole> CustomRoles { get; set; }
+    public DbSet<BorrowTransaction> BorrowTransactions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -28,7 +27,7 @@ public class ApplicationDbContext : IdentityDbContext<CustomUser, CustomRole, st
         builder.Entity<IdentityUserRole<string>>().HasData(seedUsersRoles.UserRoles);
 
         builder.Entity<Book>().ToTable("Book");
-        builder.Entity<BookTransaction>().ToTable("BookTransaction");
+        builder.Entity<BorrowTransaction>().ToTable("BorrowTransaction");
 
         builder.Seed();
     }

@@ -104,13 +104,13 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5062ef3f-cfc1-4aa4-93c6-4aa086b93588",
-                            RoleId = "60182f84-4a69-490b-9159-02657683eafe"
+                            UserId = "cbac8475-9c13-44b5-9aa0-80f008bf9115",
+                            RoleId = "eb658379-cf09-40f5-a43c-fe88b94f2ad3"
                         },
                         new
                         {
-                            UserId = "3ffd4ba2-8fd2-4880-ada4-b401638c8819",
-                            RoleId = "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8"
+                            UserId = "9de991ee-cc9d-4115-adca-e807db20e88d",
+                            RoleId = "4695fb94-fd1e-45af-bea8-230722dfb4ba"
                         });
                 });
 
@@ -135,58 +135,6 @@ namespace OnlineLibrary.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OnlineLibrary.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUser");
-                });
-
             modelBuilder.Entity("OnlineLibrary.Models.Book", b =>
                 {
                     b.Property<int>("CodeNumber")
@@ -196,6 +144,9 @@ namespace OnlineLibrary.Data.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Available")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
@@ -216,6 +167,7 @@ namespace OnlineLibrary.Data.Migrations
                         {
                             CodeNumber = 1,
                             Author = "Andrew Chevallier",
+                            Available = 1,
                             Quantity = 1,
                             Title = "Encyclopedia of Herbal Medicine: 550 Herbs and Remedies for Common Ailments",
                             YearPublished = 2016
@@ -224,6 +176,7 @@ namespace OnlineLibrary.Data.Migrations
                         {
                             CodeNumber = 2,
                             Author = "Michael T. Murray M.D. and Joseph Pizzorno",
+                            Available = 1,
                             Quantity = 3,
                             Title = "The Encyclopedia of Natural Medicine Third Edition",
                             YearPublished = 2012
@@ -232,6 +185,7 @@ namespace OnlineLibrary.Data.Migrations
                         {
                             CodeNumber = 3,
                             Author = "Thomas Easley and Steven Horne",
+                            Available = 1,
                             Quantity = 1,
                             Title = "The Modern Herbal Dispensatory: A Medicine-Making Guide",
                             YearPublished = 2016
@@ -240,6 +194,7 @@ namespace OnlineLibrary.Data.Migrations
                         {
                             CodeNumber = 4,
                             Author = "Cat Ellis",
+                            Available = 1,
                             Quantity = 2,
                             Title = "Prepper's Natural Medicine: Life-Saving Herbs, Essential Oils and Natural Remedies for When There is No Doctor",
                             YearPublished = 2015
@@ -248,38 +203,41 @@ namespace OnlineLibrary.Data.Migrations
                         {
                             CodeNumber = 5,
                             Author = "Rosemary Gladstar",
+                            Available = 1,
                             Quantity = 1,
                             Title = "Rosemary Gladstar's Medicinal Herbs: A Beginner's Guide: 33 Healing Herbs to Know, Grow, and Use",
                             YearPublished = 2012
                         });
                 });
 
-            modelBuilder.Entity("OnlineLibrary.Models.BookTransaction", b =>
+            modelBuilder.Entity("OnlineLibrary.Models.BorrowTransaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookCodeNumber")
+                    b.Property<int>("CodeNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DueDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Returned")
+                    b.Property<DateTime?>("RentalDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("State")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookCodeNumber");
+                    b.HasIndex("CodeNumber");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BookTransaction", (string)null);
+                    b.ToTable("BorrowTransaction", (string)null);
                 });
 
             modelBuilder.Entity("OnlineLibrary.Models.CustomRole", b =>
@@ -316,16 +274,16 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60182f84-4a69-490b-9159-02657683eafe",
-                            CreatedDate = new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9440),
+                            Id = "eb658379-cf09-40f5-a43c-fe88b94f2ad3",
+                            CreatedDate = new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1480),
                             Description = "Administrator Role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8",
-                            CreatedDate = new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9490),
+                            Id = "4695fb94-fd1e-45af-bea8-230722dfb4ba",
+                            CreatedDate = new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1520),
                             Description = "Member Role",
                             Name = "Member",
                             NormalizedName = "MEMBER"
@@ -404,9 +362,9 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5062ef3f-cfc1-4aa4-93c6-4aa086b93588",
+                            Id = "cbac8475-9c13-44b5-9aa0-80f008bf9115",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7065a878-7c87-407a-8f3c-e1f569aafbb4",
+                            ConcurrencyStamp = "ada2eee5-a6ae-4010-b76e-a5148eff3938",
                             Email = "aa@aa.aa",
                             EmailConfirmed = true,
                             FirstName = "Adam",
@@ -414,17 +372,17 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "AA@AA.AA",
                             NormalizedUserName = "AA@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFoZIQ6sCw8kOzncONzFAT7FzPlgMAfkxSMW3B75mY5+vcbO5KxyR3au95HWv41EHQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHNhsM3153MBLtJQ80INHBopKcHezGpHWQ59uEJDVb/G/C80wdxtxxMAdST6t3YyQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "937732f6-3b3c-4036-be5a-e6d938490b77",
+                            SecurityStamp = "65c075b3-ffc2-4777-9f53-e3673ba8b139",
                             TwoFactorEnabled = false,
                             UserName = "aa@aa.aa"
                         },
                         new
                         {
-                            Id = "3ffd4ba2-8fd2-4880-ada4-b401638c8819",
+                            Id = "9de991ee-cc9d-4115-adca-e807db20e88d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4cb2058-d79d-4141-8473-ffa9e9e07656",
+                            ConcurrencyStamp = "0eafc657-199b-4d98-9769-8b49325f451c",
                             Email = "mm@mm.mm",
                             EmailConfirmed = true,
                             FirstName = "Mary",
@@ -432,9 +390,9 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MM@MM.MM",
                             NormalizedUserName = "MM@MM.MM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELT9z0bUSu6V+ne9V2jFsOvNMM4W5Kof7rlNm1HSszpChIiRsm5xHmpjjbWHK2d1pQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFMcIk+gmwaWD7Dq3qZQt+wAXkBgb61tNhgzBHBb5DrSvv9b7LmFElRVe9xCoUzTAA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dfc06344-08cd-447c-9600-d08489fde2eb",
+                            SecurityStamp = "2b99f2af-5f4c-4dfb-acac-8eb654f7aece",
                             TwoFactorEnabled = false,
                             UserName = "mm@mm.mm"
                         });
@@ -491,23 +449,21 @@ namespace OnlineLibrary.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineLibrary.Models.BookTransaction", b =>
+            modelBuilder.Entity("OnlineLibrary.Models.BorrowTransaction", b =>
                 {
                     b.HasOne("OnlineLibrary.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookCodeNumber")
+                        .HasForeignKey("CodeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OnlineLibrary.Models.ApplicationUser", "User")
+                    b.HasOne("OnlineLibrary.Models.CustomUser", "Borrower")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Book");
 
-                    b.Navigation("User");
+                    b.Navigation("Borrower");
                 });
 #pragma warning restore 612, 618
         }

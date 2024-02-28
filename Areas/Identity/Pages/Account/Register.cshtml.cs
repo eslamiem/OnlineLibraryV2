@@ -143,9 +143,10 @@ namespace OnlineLibrary.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    //Add "Member" role to the user
-                    await _userManager.AddToRoleAsync(user, "Member");
-                    
+                    //Add "Member" role to the register user
+                    var memberRole = await _userRoleStore.FindByNameAsync("Member", CancellationToken.None);
+                    await _userManager.AddToRoleAsync(user, memberRole.Name);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

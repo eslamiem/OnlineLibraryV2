@@ -14,31 +14,6 @@ namespace OnlineLibrary.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ApplicationUser",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -90,7 +65,8 @@ namespace OnlineLibrary.Data.Migrations
                     Author = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     YearPublished = table.Column<int>(type: "INTEGER", nullable: false),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Available = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,28 +180,28 @@ namespace OnlineLibrary.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookTransaction",
+                name: "BorrowTransaction",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BookCodeNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Returned = table.Column<bool>(type: "INTEGER", nullable: false)
+                    RentalDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    State = table.Column<int>(type: "INTEGER", nullable: false),
+                    CodeNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookTransaction", x => x.Id);
+                    table.PrimaryKey("PK_BorrowTransaction", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookTransaction_ApplicationUser_UserId",
+                        name: "FK_BorrowTransaction_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "ApplicationUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_BookTransaction_Book_BookCodeNumber",
-                        column: x => x.BookCodeNumber,
+                        name: "FK_BorrowTransaction_Book_CodeNumber",
+                        column: x => x.CodeNumber,
                         principalTable: "Book",
                         principalColumn: "CodeNumber",
                         onDelete: ReferentialAction.Cascade);
@@ -236,8 +212,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "60182f84-4a69-490b-9159-02657683eafe", null, new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9440), "Administrator Role", "Admin", "ADMIN" },
-                    { "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8", null, new DateTime(2024, 2, 25, 23, 35, 36, 660, DateTimeKind.Local).AddTicks(9490), "Member Role", "Member", "MEMBER" }
+                    { "4695fb94-fd1e-45af-bea8-230722dfb4ba", null, new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1520), "Member Role", "Member", "MEMBER" },
+                    { "eb658379-cf09-40f5-a43c-fe88b94f2ad3", null, new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1480), "Administrator Role", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -245,20 +221,20 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "3ffd4ba2-8fd2-4880-ada4-b401638c8819", 0, "c4cb2058-d79d-4141-8473-ffa9e9e07656", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAELT9z0bUSu6V+ne9V2jFsOvNMM4W5Kof7rlNm1HSszpChIiRsm5xHmpjjbWHK2d1pQ==", null, false, "dfc06344-08cd-447c-9600-d08489fde2eb", false, "mm@mm.mm" },
-                    { "5062ef3f-cfc1-4aa4-93c6-4aa086b93588", 0, "7065a878-7c87-407a-8f3c-e1f569aafbb4", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEFoZIQ6sCw8kOzncONzFAT7FzPlgMAfkxSMW3B75mY5+vcbO5KxyR3au95HWv41EHQ==", null, false, "937732f6-3b3c-4036-be5a-e6d938490b77", false, "aa@aa.aa" }
+                    { "9de991ee-cc9d-4115-adca-e807db20e88d", 0, "0eafc657-199b-4d98-9769-8b49325f451c", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEFMcIk+gmwaWD7Dq3qZQt+wAXkBgb61tNhgzBHBb5DrSvv9b7LmFElRVe9xCoUzTAA==", null, false, "2b99f2af-5f4c-4dfb-acac-8eb654f7aece", false, "mm@mm.mm" },
+                    { "cbac8475-9c13-44b5-9aa0-80f008bf9115", 0, "ada2eee5-a6ae-4010-b76e-a5148eff3938", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEHNhsM3153MBLtJQ80INHBopKcHezGpHWQ59uEJDVb/G/C80wdxtxxMAdST6t3YyQQ==", null, false, "65c075b3-ffc2-4777-9f53-e3673ba8b139", false, "aa@aa.aa" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "CodeNumber", "Author", "Quantity", "Title", "YearPublished" },
+                columns: new[] { "CodeNumber", "Author", "Available", "Quantity", "Title", "YearPublished" },
                 values: new object[,]
                 {
-                    { 1, "Andrew Chevallier", 1, "Encyclopedia of Herbal Medicine: 550 Herbs and Remedies for Common Ailments", 2016 },
-                    { 2, "Michael T. Murray M.D. and Joseph Pizzorno", 3, "The Encyclopedia of Natural Medicine Third Edition", 2012 },
-                    { 3, "Thomas Easley and Steven Horne", 1, "The Modern Herbal Dispensatory: A Medicine-Making Guide", 2016 },
-                    { 4, "Cat Ellis", 2, "Prepper's Natural Medicine: Life-Saving Herbs, Essential Oils and Natural Remedies for When There is No Doctor", 2015 },
-                    { 5, "Rosemary Gladstar", 1, "Rosemary Gladstar's Medicinal Herbs: A Beginner's Guide: 33 Healing Herbs to Know, Grow, and Use", 2012 }
+                    { 1, "Andrew Chevallier", 1, 1, "Encyclopedia of Herbal Medicine: 550 Herbs and Remedies for Common Ailments", 2016 },
+                    { 2, "Michael T. Murray M.D. and Joseph Pizzorno", 1, 3, "The Encyclopedia of Natural Medicine Third Edition", 2012 },
+                    { 3, "Thomas Easley and Steven Horne", 1, 1, "The Modern Herbal Dispensatory: A Medicine-Making Guide", 2016 },
+                    { 4, "Cat Ellis", 1, 2, "Prepper's Natural Medicine: Life-Saving Herbs, Essential Oils and Natural Remedies for When There is No Doctor", 2015 },
+                    { 5, "Rosemary Gladstar", 1, 1, "Rosemary Gladstar's Medicinal Herbs: A Beginner's Guide: 33 Healing Herbs to Know, Grow, and Use", 2012 }
                 });
 
             migrationBuilder.InsertData(
@@ -266,8 +242,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "dca7f64f-ede7-4735-9e42-7cb3b20ad2d8", "3ffd4ba2-8fd2-4880-ada4-b401638c8819" },
-                    { "60182f84-4a69-490b-9159-02657683eafe", "5062ef3f-cfc1-4aa4-93c6-4aa086b93588" }
+                    { "4695fb94-fd1e-45af-bea8-230722dfb4ba", "9de991ee-cc9d-4115-adca-e807db20e88d" },
+                    { "eb658379-cf09-40f5-a43c-fe88b94f2ad3", "cbac8475-9c13-44b5-9aa0-80f008bf9115" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -308,13 +284,13 @@ namespace OnlineLibrary.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookTransaction_BookCodeNumber",
-                table: "BookTransaction",
-                column: "BookCodeNumber");
+                name: "IX_BorrowTransaction_CodeNumber",
+                table: "BorrowTransaction",
+                column: "CodeNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookTransaction_UserId",
-                table: "BookTransaction",
+                name: "IX_BorrowTransaction_UserId",
+                table: "BorrowTransaction",
                 column: "UserId");
         }
 
@@ -337,16 +313,13 @@ namespace OnlineLibrary.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookTransaction");
+                name: "BorrowTransaction");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationUser");
 
             migrationBuilder.DropTable(
                 name: "Book");
