@@ -13,11 +13,11 @@ public class BorrowTransaction
 
     [DataType(DataType.DateTime)]
     [Display(Name = "Rental Date")]
-    public DateTime? RentalDate { get; private set; }
+    public DateTime RentalDate { get;  set; }
 
     [DataType(DataType.DateTime)]
     [Display(Name = "End Date")]
-    public DateTime EndDate { get; private set; }
+    public DateTime EndDate { get;  set; }
 
     public BorrowingState State { get; private set; }
 
@@ -69,7 +69,6 @@ public class BorrowTransaction
     {
         EndDate = DateTime.Now;
         State = BorrowingState.Cancelled;
-        Book!.IsAvailable();
     }
     public enum BorrowingState
     {

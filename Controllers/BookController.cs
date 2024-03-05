@@ -179,7 +179,8 @@ namespace OnlineLibrary.Controllers
             BorrowTransaction borrowTransaction = new BorrowTransaction
             {
                 Book = book!,
-                // Borrower = userId,
+                CodeNumber = book!.CodeNumber,
+                UserId = userId,
             };
             if (book?.Available == Book.Availability.NotAvailable)
             {
@@ -189,6 +190,14 @@ namespace OnlineLibrary.Controllers
 
             if (ModelState.IsValid)
             {
+                book!.Quantity--;
+                if (book!.Quantity == 0)
+                {
+                    book!.IsNotAvailable();
+                }
+                _context.Update(book);
+                    await _context.SaveChangesAsync();
+
                 _context.Add(borrowTransaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
