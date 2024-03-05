@@ -212,8 +212,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "6f247273-993c-46fc-bc65-022c676ffb1f", null, new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6580), "Administrator Role", "Admin", "ADMIN" },
-                    { "ee832188-30fe-4431-9d85-f3692aae0a93", null, new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6630), "Member Role", "Member", "MEMBER" }
+                    { "a8b82dc7-89f8-4f93-8502-8b379512c937", null, new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(8980), "Administrator Role", "Admin", "ADMIN" },
+                    { "d34033c6-2850-461d-8f4e-242cf0e0cd7f", null, new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(9030), "Member Role", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
@@ -221,8 +221,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24", 0, "437612c1-ffc5-4885-a4bd-8a0ee2a23078", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEBd4U4K8776LKokpc/eUVzsugwqjnnuYRTWEoc3HDW/Cxr2JIEyiQvxuv1fLowC13Q==", null, false, "a3e8822f-2ae0-4d2d-83ad-32cc8951b151", false, "mm@mm.mm" },
-                    { "bd47d62b-4046-4de7-b512-047abf134a7a", 0, "35f981c7-f0f7-4393-b1fe-8d87ed7a7aac", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEKNzkb6TQnMrhM4qey2f1lvCdd3q69G3SsW7u5zjadcaxjsl4M5sIE29geteT6YH6w==", null, false, "e4fbd27c-0288-4c58-957f-aec2c6920067", false, "aa@aa.aa" }
+                    { "8476a86d-f784-46eb-bdf3-6d454745bfcb", 0, "3b7932ec-2e85-44fb-bea1-69b6796a0c89", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEIwiDCzxWCq0cgujqTvoleLaGZqd1U4unF84gvfP5q6I0pcpDoH5sLQg0ZRa+qH7iw==", null, false, "b6e895c2-0d36-4ada-be87-625756377f45", false, "aa@aa.aa" },
+                    { "c55ff277-e644-4de4-b526-7878173472a5", 0, "a2f39130-5d53-448e-a26e-7aa0461434c5", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEAzR1m8MBjL9Bxeeg6QINMwSEh+al2ILXCNyEZrUwXXlA+J7M8bePcgHau4c4WwK/A==", null, false, "33902dce-b697-43f7-b22d-3aa71eb4c172", false, "mm@mm.mm" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,8 +242,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "ee832188-30fe-4431-9d85-f3692aae0a93", "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24" },
-                    { "6f247273-993c-46fc-bc65-022c676ffb1f", "bd47d62b-4046-4de7-b512-047abf134a7a" }
+                    { "a8b82dc7-89f8-4f93-8502-8b379512c937", "8476a86d-f784-46eb-bdf3-6d454745bfcb" },
+                    { "d34033c6-2850-461d-8f4e-242cf0e0cd7f", "c55ff277-e644-4de4-b526-7878173472a5" }
                 });
 
             migrationBuilder.CreateIndex(
