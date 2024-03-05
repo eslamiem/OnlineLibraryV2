@@ -185,7 +185,7 @@ namespace OnlineLibrary.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RentalDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    RentalDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     State = table.Column<int>(type: "INTEGER", nullable: false),
                     CodeNumber = table.Column<int>(type: "INTEGER", nullable: false),
@@ -212,8 +212,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4695fb94-fd1e-45af-bea8-230722dfb4ba", null, new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1520), "Member Role", "Member", "MEMBER" },
-                    { "eb658379-cf09-40f5-a43c-fe88b94f2ad3", null, new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1480), "Administrator Role", "Admin", "ADMIN" }
+                    { "6f247273-993c-46fc-bc65-022c676ffb1f", null, new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6580), "Administrator Role", "Admin", "ADMIN" },
+                    { "ee832188-30fe-4431-9d85-f3692aae0a93", null, new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6630), "Member Role", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
@@ -221,8 +221,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "9de991ee-cc9d-4115-adca-e807db20e88d", 0, "0eafc657-199b-4d98-9769-8b49325f451c", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEFMcIk+gmwaWD7Dq3qZQt+wAXkBgb61tNhgzBHBb5DrSvv9b7LmFElRVe9xCoUzTAA==", null, false, "2b99f2af-5f4c-4dfb-acac-8eb654f7aece", false, "mm@mm.mm" },
-                    { "cbac8475-9c13-44b5-9aa0-80f008bf9115", 0, "ada2eee5-a6ae-4010-b76e-a5148eff3938", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEHNhsM3153MBLtJQ80INHBopKcHezGpHWQ59uEJDVb/G/C80wdxtxxMAdST6t3YyQQ==", null, false, "65c075b3-ffc2-4777-9f53-e3673ba8b139", false, "aa@aa.aa" }
+                    { "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24", 0, "437612c1-ffc5-4885-a4bd-8a0ee2a23078", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEBd4U4K8776LKokpc/eUVzsugwqjnnuYRTWEoc3HDW/Cxr2JIEyiQvxuv1fLowC13Q==", null, false, "a3e8822f-2ae0-4d2d-83ad-32cc8951b151", false, "mm@mm.mm" },
+                    { "bd47d62b-4046-4de7-b512-047abf134a7a", 0, "35f981c7-f0f7-4393-b1fe-8d87ed7a7aac", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEKNzkb6TQnMrhM4qey2f1lvCdd3q69G3SsW7u5zjadcaxjsl4M5sIE29geteT6YH6w==", null, false, "e4fbd27c-0288-4c58-957f-aec2c6920067", false, "aa@aa.aa" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,8 +242,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "4695fb94-fd1e-45af-bea8-230722dfb4ba", "9de991ee-cc9d-4115-adca-e807db20e88d" },
-                    { "eb658379-cf09-40f5-a43c-fe88b94f2ad3", "cbac8475-9c13-44b5-9aa0-80f008bf9115" }
+                    { "ee832188-30fe-4431-9d85-f3692aae0a93", "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24" },
+                    { "6f247273-993c-46fc-bc65-022c676ffb1f", "bd47d62b-4046-4de7-b512-047abf134a7a" }
                 });
 
             migrationBuilder.CreateIndex(

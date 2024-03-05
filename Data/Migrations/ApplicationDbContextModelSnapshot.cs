@@ -104,13 +104,13 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "cbac8475-9c13-44b5-9aa0-80f008bf9115",
-                            RoleId = "eb658379-cf09-40f5-a43c-fe88b94f2ad3"
+                            UserId = "bd47d62b-4046-4de7-b512-047abf134a7a",
+                            RoleId = "6f247273-993c-46fc-bc65-022c676ffb1f"
                         },
                         new
                         {
-                            UserId = "9de991ee-cc9d-4115-adca-e807db20e88d",
-                            RoleId = "4695fb94-fd1e-45af-bea8-230722dfb4ba"
+                            UserId = "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24",
+                            RoleId = "ee832188-30fe-4431-9d85-f3692aae0a93"
                         });
                 });
 
@@ -222,7 +222,7 @@ namespace OnlineLibrary.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("RentalDate")
+                    b.Property<DateTime>("RentalDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -274,16 +274,16 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb658379-cf09-40f5-a43c-fe88b94f2ad3",
-                            CreatedDate = new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1480),
+                            Id = "6f247273-993c-46fc-bc65-022c676ffb1f",
+                            CreatedDate = new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6580),
                             Description = "Administrator Role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4695fb94-fd1e-45af-bea8-230722dfb4ba",
-                            CreatedDate = new DateTime(2024, 2, 27, 15, 33, 22, 713, DateTimeKind.Local).AddTicks(1520),
+                            Id = "ee832188-30fe-4431-9d85-f3692aae0a93",
+                            CreatedDate = new DateTime(2024, 3, 5, 13, 42, 12, 506, DateTimeKind.Local).AddTicks(6630),
                             Description = "Member Role",
                             Name = "Member",
                             NormalizedName = "MEMBER"
@@ -362,9 +362,9 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cbac8475-9c13-44b5-9aa0-80f008bf9115",
+                            Id = "bd47d62b-4046-4de7-b512-047abf134a7a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ada2eee5-a6ae-4010-b76e-a5148eff3938",
+                            ConcurrencyStamp = "35f981c7-f0f7-4393-b1fe-8d87ed7a7aac",
                             Email = "aa@aa.aa",
                             EmailConfirmed = true,
                             FirstName = "Adam",
@@ -372,17 +372,17 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "AA@AA.AA",
                             NormalizedUserName = "AA@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHNhsM3153MBLtJQ80INHBopKcHezGpHWQ59uEJDVb/G/C80wdxtxxMAdST6t3YyQQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKNzkb6TQnMrhM4qey2f1lvCdd3q69G3SsW7u5zjadcaxjsl4M5sIE29geteT6YH6w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "65c075b3-ffc2-4777-9f53-e3673ba8b139",
+                            SecurityStamp = "e4fbd27c-0288-4c58-957f-aec2c6920067",
                             TwoFactorEnabled = false,
                             UserName = "aa@aa.aa"
                         },
                         new
                         {
-                            Id = "9de991ee-cc9d-4115-adca-e807db20e88d",
+                            Id = "9e9fc7e2-04bc-4d2d-a1e5-ad20f9891e24",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0eafc657-199b-4d98-9769-8b49325f451c",
+                            ConcurrencyStamp = "437612c1-ffc5-4885-a4bd-8a0ee2a23078",
                             Email = "mm@mm.mm",
                             EmailConfirmed = true,
                             FirstName = "Mary",
@@ -390,9 +390,9 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MM@MM.MM",
                             NormalizedUserName = "MM@MM.MM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFMcIk+gmwaWD7Dq3qZQt+wAXkBgb61tNhgzBHBb5DrSvv9b7LmFElRVe9xCoUzTAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBd4U4K8776LKokpc/eUVzsugwqjnnuYRTWEoc3HDW/Cxr2JIEyiQvxuv1fLowC13Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b99f2af-5f4c-4dfb-acac-8eb654f7aece",
+                            SecurityStamp = "a3e8822f-2ae0-4d2d-83ad-32cc8951b151",
                             TwoFactorEnabled = false,
                             UserName = "mm@mm.mm"
                         });

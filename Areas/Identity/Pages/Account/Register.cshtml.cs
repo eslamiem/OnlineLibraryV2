@@ -29,19 +29,20 @@ namespace OnlineLibrary.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<CustomUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IUserRoleStore<CustomRole> _userRoleStore;
-        private readonly Data.ApplicationDbContext _context;
+        private readonly RoleManager<CustomRole> _roleManager;
 
 
         public RegisterModel(
             UserManager<CustomUser> userManager,
             IUserStore<CustomUser> userStore,
+            RoleManager<CustomRole> roleManager,
             SignInManager<CustomUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
+            _roleManager = roleManager;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
@@ -144,7 +145,7 @@ namespace OnlineLibrary.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //Add "Member" role to the register user
-                    var memberRole = await _userRoleStore.FindByNameAsync("Member", CancellationToken.None);
+                    var memberRole = await _roleManager.FindByNameAsync("Member");
                     await _userManager.AddToRoleAsync(user, memberRole.Name);
 
                     _logger.LogInformation("User created a new account with password.");
