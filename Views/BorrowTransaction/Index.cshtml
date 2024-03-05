@@ -27,28 +27,38 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model.Count() == 0)
             {
                 <tr>
-                    <td>
-                        @item.Book.Title
-                    </td>
-                    <td>
-                        @item.RentalDate.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.EndDate.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.State
-                    </td>
-                    <td class="text-center">
-                        @if (@item.State == BorrowTransaction.BorrowingState.InProgrees)
-                        {
-                            <a asp-action="Return" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-1">Return</a>
-                        }
-                    </td>
+                    <td colspan="5">No hold found.</td>
                 </tr>
+            }
+            else
+            {
+                var rowCount = 0;
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Book.Title
+                        </td>
+                        <td>
+                            @item.RentalDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.EndDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.State
+                        </td>
+                        <td class="text-center">
+                            @if (@item.State == BorrowTransaction.BorrowingState.InProgrees)
+                            {
+                                <a asp-action="Return" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-1">Return</a>
+                            }
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

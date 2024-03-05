@@ -24,6 +24,33 @@ namespace OnlineLibrary.Controllers
         // GET: Book
         public async Task<IActionResult> Index()
         {
+            TempData["PastDueDate"] = false;
+            TempData["PastDueDateBookTitles"] = "";
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var pastDueDateList = await _context.BorrowTransactions
+                .Include(b => b.Book)
+                .Where(bt => bt.UserId == userId
+                    && bt.EndDate < DateTime.Now
+                    && bt.State == BorrowTransaction.BorrowingState.InProgrees)
+                .ToListAsync();
+
+            if (pastDueDateList.Any())
+            {
+                TempData["PastDueDate"] = true;
+                // Extract book titles from pastDueDateTransactions
+                var bookTitles = pastDueDateList.Select(bt => bt.Book.Title).ToList();
+
+                // Construct the message with newline characters
+                var bookTitlesNewlines = string.Join("\n\r", bookTitles);
+
+                // Ensure that TempData["PastDueDateBookTitles"] is properly encoded before passing it to the view
+                var encodedBookTitles = System.Web.HttpUtility.JavaScriptStringEncode(bookTitlesNewlines);
+                TempData["PastDueDateBookTitles"] = encodedBookTitles;
+
+            }
+
             return View(await _context.Books.ToListAsync());
         }
 
@@ -167,7 +194,7 @@ namespace OnlineLibrary.Controllers
             }
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Book? book = await _context.Books.FirstOrDefaultAsync(m => m.CodeNumber == id);
-            
+
             if (book == null || userId == null || book.Available == Book.Availability.NotAvailable)
             {
                 return NotFound();
@@ -196,7 +223,7 @@ namespace OnlineLibrary.Controllers
                     book!.IsNotAvailable();
                 }
                 _context.Update(book);
-                    await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 _context.Add(borrowTransaction);
                 await _context.SaveChangesAsync();

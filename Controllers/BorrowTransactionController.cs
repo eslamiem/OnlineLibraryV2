@@ -48,7 +48,7 @@ namespace OnlineLibrary.Controllers
                 }
                 try
                 {
-                    borrowTransaction.CancelBorrowing();
+                    borrowTransaction.EndBorrowing();
                     _context.Update(borrowTransaction);
                     await _context.SaveChangesAsync();
 

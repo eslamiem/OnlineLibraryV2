@@ -32,7 +32,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Available)
                 </th>
-                @if (Context.User.Identity.IsAuthenticated)
+                @if (Context.User != null && Context.User.Identity.IsAuthenticated)
                 {
                     <th></th>
                     <th></th>
@@ -41,44 +41,86 @@
         </thead>
 
         <tbody>
-            @{
-                var rowCount = 0;
-            }
-            @foreach (var item in Model)
+            @if (Model.Count() == 0)
             {
-                <tr class="@((rowCount++ % 2 == 0) ? "table-light" : "")">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.YearPublished)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Available)
-                    </td>
-                    <td class="text-center">
-                        @if (Context.User.Identity.IsAuthenticated && item.Available == Book.Availability.Available)
-                        {
-                            <a asp-action="Borrow" asp-route-id="@item.CodeNumber" class="btn btn-success btn-sm mr-1">Borrow</a>
-                        }
-                    </td>
-
-                    <td class="text-center">
-                        <a class="btn btn-info btn-sm mr-1" asp-action="Details" asp-route-id="@item.CodeNumber">Details</a>
-                        @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                        {
-                            <a class="btn btn-primary btn-sm mr-1" asp-action="Edit" asp-route-id="@item.CodeNumber">Edit</a>
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.CodeNumber">Delete</a>
-                        }
-                    </td>
+                <tr>
+                    <td colspan="7">No books found.</td>
                 </tr>
+            }
+            else
+            {
+                var rowCount = 0;
+                @foreach (var item in Model)
+                {
+                    <tr class="@((rowCount++ % 2 == 0) ? "table-light" : "")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.YearPublished)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Available)
+                        </td>
+                        <td class="text-center">
+                            @if (Context.User.Identity.IsAuthenticated && item.Available == Book.Availability.Available)
+                            {
+                                <a asp-action="Borrow" asp-route-id="@item.CodeNumber"
+                                    class="btn btn-success btn-sm mr-1">Borrow</a>
+                            }
+                        </td>
+
+                        <td class="text-center">
+                            <a class="btn btn-info btn-sm mr-1" asp-action="Details" asp-route-id="@item.CodeNumber">Details</a>
+                            @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary btn-sm mr-1" asp-action="Edit" asp-route-id="@item.CodeNumber">Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.CodeNumber">Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Check if TempData contains past due date information
+        @if (TempData.ContainsKey("PastDueDate") && (bool)TempData["PastDueDate"])
+        {
+             <text>    
+                // Get the past due book titles from TempData
+                var encodedBookTitles = '@TempData["PastDueDateBookTitles"]';
+
+                // Decode the encoded book titles
+                var bookTitles = decodeURIComponent(encodedBookTitles).split('\n');
+
+                // Construct the past due message
+                var dueDateMessage = "FROM: Online Library\n";
+                dueDateMessage += "TO: You\n";
+                dueDateMessage += "SUBJECT: Past Due Books\n\n";
+                dueDateMessage += "Dear Member,\n\n";
+                dueDateMessage += "You have past due books for the following books:\n\n";
+
+                // Add the past due book titles to the message  
+                dueDateMessage += bookTitles;
+
+                dueDateMessage += "\n\nPlease return them as soon as possible.\n\n";
+                dueDateMessage += "Thank you,\nPublic Library Management System";
+
+                // Display the past due message as an alert
+                alert(dueDateMessage);
+            </text>
+        }
+      });
+    </script>
+}
