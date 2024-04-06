@@ -36,6 +36,10 @@ namespace OnlineLibrary.Data.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    State = table.Column<string>(type: "TEXT", nullable: true),
+                    Street = table.Column<string>(type: "TEXT", nullable: true),
+                    PostalCode = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -212,17 +216,17 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a8b82dc7-89f8-4f93-8502-8b379512c937", null, new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(8980), "Administrator Role", "Admin", "ADMIN" },
-                    { "d34033c6-2850-461d-8f4e-242cf0e0cd7f", null, new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(9030), "Member Role", "Member", "MEMBER" }
+                    { "34af563e-299c-4fc3-8837-2f9fb27743dc", null, new DateTime(2024, 4, 1, 9, 18, 47, 319, DateTimeKind.Local).AddTicks(8490), "Administrator Role", "Admin", "ADMIN" },
+                    { "8fdd42be-9f10-49da-8d19-9ef2f06d2213", null, new DateTime(2024, 4, 1, 9, 18, 47, 319, DateTimeKind.Local).AddTicks(8550), "Member Role", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "State", "Street", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "8476a86d-f784-46eb-bdf3-6d454745bfcb", 0, "3b7932ec-2e85-44fb-bea1-69b6796a0c89", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEIwiDCzxWCq0cgujqTvoleLaGZqd1U4unF84gvfP5q6I0pcpDoH5sLQg0ZRa+qH7iw==", null, false, "b6e895c2-0d36-4ada-be87-625756377f45", false, "aa@aa.aa" },
-                    { "c55ff277-e644-4de4-b526-7878173472a5", 0, "a2f39130-5d53-448e-a26e-7aa0461434c5", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEAzR1m8MBjL9Bxeeg6QINMwSEh+al2ILXCNyEZrUwXXlA+J7M8bePcgHau4c4WwK/A==", null, false, "33902dce-b697-43f7-b22d-3aa71eb4c172", false, "mm@mm.mm" }
+                    { "476c6a8b-7f25-41f4-ab91-0981fd82ba74", 0, "cb057f8a-82ce-4218-ae4d-efccc537c469", "Canada", "mm@mm.mm", true, "Mary", "Martin", false, null, "MM@MM.MM", "MM@MM.MM", "AQAAAAIAAYagAAAAEIEQhwDiIrYNjS3vHgMcFAG5jIRLBkLQaWPTiHT50OT4WCXrgTxFUkAuuVnlofTdTQ==", "0987654321", false, "B02 1B2", "f40c42a5-88a5-41f4-8d65-f11b8d00c071", "ON", "456 Georgia St", false, "mm@mm.mm" },
+                    { "5caae6fc-7222-445b-84bb-3e09a884fd3d", 0, "ea467757-fdfe-43f8-b57f-cec799f9f68c", "Canada", "aa@aa.aa", true, "Adam", "Smith", false, null, "AA@AA.AA", "AA@AA.AA", "AQAAAAIAAYagAAAAEPpz9Wfvd4p65gp7evi5nuZdFiTZHIT5mC4tqs9csm9UGEBBXlWAA6AoFSQG41EEGw==", "1234567890", false, "V6A 1A7", "e68aa9f0-7fcc-414c-848d-f6c5ab52e7a2", "BC", "123 Main St", false, "aa@aa.aa" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,8 +246,8 @@ namespace OnlineLibrary.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "a8b82dc7-89f8-4f93-8502-8b379512c937", "8476a86d-f784-46eb-bdf3-6d454745bfcb" },
-                    { "d34033c6-2850-461d-8f4e-242cf0e0cd7f", "c55ff277-e644-4de4-b526-7878173472a5" }
+                    { "8fdd42be-9f10-49da-8d19-9ef2f06d2213", "476c6a8b-7f25-41f4-ab91-0981fd82ba74" },
+                    { "34af563e-299c-4fc3-8837-2f9fb27743dc", "5caae6fc-7222-445b-84bb-3e09a884fd3d" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -51,7 +51,12 @@ public class SeedUsersRoles
             Email = "aa@aa.aa",
             EmailConfirmed = true,
             FirstName = "Adam",
-            LastName = "Smith"
+            LastName = "Smith",
+            PhoneNumber = "1234567890",
+            Country = "Canada",
+            State = "BC",
+            Street = "123 Main St",
+            PostalCode = "V6A 1A7"
         };
         adminUser.NormalizedUserName = adminUser.UserName.ToUpper();
         adminUser.NormalizedEmail = adminUser.Email.ToUpper();
@@ -62,7 +67,12 @@ public class SeedUsersRoles
             Email = "mm@mm.mm",
             EmailConfirmed = true,
             FirstName = "Mary",
-            LastName = "Martin"
+            LastName = "Martin",
+            PhoneNumber = "0987654321",
+            Country = "Canada",
+            State = "ON",
+            Street = "456 Georgia St",
+            PostalCode = "B02 1B2"
         };
         memberUser.NormalizedUserName = memberUser.UserName.ToUpper();
         memberUser.NormalizedEmail = memberUser.Email.ToUpper();

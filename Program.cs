@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineLibrary.Data;
 using OnlineLibrary.Models;
+using OnlineLibrary.Components;
+using OnlineLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,13 @@ options => {
 
 builder.Services.AddControllersWithViews();
 
+builder.Services
+.AddRazorComponents()
+.AddInteractiveServerComponents()
+.AddCircuitOptions(options => options.DetailedErrors = true); // for debugging razor components
+
+builder.Services.AddScoped<UserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,11 +62,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAntiforgery();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MapRazorComponents<App>()
+.AddInteractiveServerRenderMode();
 
 app.Run();

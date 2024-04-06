@@ -104,13 +104,13 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "8476a86d-f784-46eb-bdf3-6d454745bfcb",
-                            RoleId = "a8b82dc7-89f8-4f93-8502-8b379512c937"
+                            UserId = "5caae6fc-7222-445b-84bb-3e09a884fd3d",
+                            RoleId = "34af563e-299c-4fc3-8837-2f9fb27743dc"
                         },
                         new
                         {
-                            UserId = "c55ff277-e644-4de4-b526-7878173472a5",
-                            RoleId = "d34033c6-2850-461d-8f4e-242cf0e0cd7f"
+                            UserId = "476c6a8b-7f25-41f4-ab91-0981fd82ba74",
+                            RoleId = "8fdd42be-9f10-49da-8d19-9ef2f06d2213"
                         });
                 });
 
@@ -274,16 +274,16 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a8b82dc7-89f8-4f93-8502-8b379512c937",
-                            CreatedDate = new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(8980),
+                            Id = "34af563e-299c-4fc3-8837-2f9fb27743dc",
+                            CreatedDate = new DateTime(2024, 4, 1, 9, 18, 47, 319, DateTimeKind.Local).AddTicks(8490),
                             Description = "Administrator Role",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d34033c6-2850-461d-8f4e-242cf0e0cd7f",
-                            CreatedDate = new DateTime(2024, 3, 5, 14, 0, 44, 247, DateTimeKind.Local).AddTicks(9030),
+                            Id = "8fdd42be-9f10-49da-8d19-9ef2f06d2213",
+                            CreatedDate = new DateTime(2024, 4, 1, 9, 18, 47, 319, DateTimeKind.Local).AddTicks(8550),
                             Description = "Member Role",
                             Name = "Member",
                             NormalizedName = "MEMBER"
@@ -300,6 +300,9 @@ namespace OnlineLibrary.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -338,7 +341,16 @@ namespace OnlineLibrary.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -362,9 +374,10 @@ namespace OnlineLibrary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8476a86d-f784-46eb-bdf3-6d454745bfcb",
+                            Id = "5caae6fc-7222-445b-84bb-3e09a884fd3d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b7932ec-2e85-44fb-bea1-69b6796a0c89",
+                            ConcurrencyStamp = "ea467757-fdfe-43f8-b57f-cec799f9f68c",
+                            Country = "Canada",
                             Email = "aa@aa.aa",
                             EmailConfirmed = true,
                             FirstName = "Adam",
@@ -372,17 +385,22 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "AA@AA.AA",
                             NormalizedUserName = "AA@AA.AA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIwiDCzxWCq0cgujqTvoleLaGZqd1U4unF84gvfP5q6I0pcpDoH5sLQg0ZRa+qH7iw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPpz9Wfvd4p65gp7evi5nuZdFiTZHIT5mC4tqs9csm9UGEBBXlWAA6AoFSQG41EEGw==",
+                            PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6e895c2-0d36-4ada-be87-625756377f45",
+                            PostalCode = "V6A 1A7",
+                            SecurityStamp = "e68aa9f0-7fcc-414c-848d-f6c5ab52e7a2",
+                            State = "BC",
+                            Street = "123 Main St",
                             TwoFactorEnabled = false,
                             UserName = "aa@aa.aa"
                         },
                         new
                         {
-                            Id = "c55ff277-e644-4de4-b526-7878173472a5",
+                            Id = "476c6a8b-7f25-41f4-ab91-0981fd82ba74",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a2f39130-5d53-448e-a26e-7aa0461434c5",
+                            ConcurrencyStamp = "cb057f8a-82ce-4218-ae4d-efccc537c469",
+                            Country = "Canada",
                             Email = "mm@mm.mm",
                             EmailConfirmed = true,
                             FirstName = "Mary",
@@ -390,9 +408,13 @@ namespace OnlineLibrary.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MM@MM.MM",
                             NormalizedUserName = "MM@MM.MM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAzR1m8MBjL9Bxeeg6QINMwSEh+al2ILXCNyEZrUwXXlA+J7M8bePcgHau4c4WwK/A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIEQhwDiIrYNjS3vHgMcFAG5jIRLBkLQaWPTiHT50OT4WCXrgTxFUkAuuVnlofTdTQ==",
+                            PhoneNumber = "0987654321",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "33902dce-b697-43f7-b22d-3aa71eb4c172",
+                            PostalCode = "B02 1B2",
+                            SecurityStamp = "f40c42a5-88a5-41f4-8d65-f11b8d00c071",
+                            State = "ON",
+                            Street = "456 Georgia St",
                             TwoFactorEnabled = false,
                             UserName = "mm@mm.mm"
                         });

@@ -32,7 +32,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Available)
                 </th>
-                @if (Context.User != null && Context.User.Identity.IsAuthenticated)
+                @if (Context.User != null && Context.User.Identity != null && Context.User.Identity.IsAuthenticated)
                 {
                     <th></th>
                     <th></th>
@@ -69,7 +69,7 @@
                             @Html.DisplayFor(modelItem => item.Available)
                         </td>
                         <td class="text-center">
-                            @if (Context.User.Identity.IsAuthenticated && item.Available == Book.Availability.Available)
+                            @if (Context.User != null && Context.User.Identity != null && Context.User.Identity.IsAuthenticated && item.Available == Book.Availability.Available)
                             {
                                 <a asp-action="Borrow" asp-route-id="@item.CodeNumber"
                                     class="btn btn-success btn-sm mr-1">Borrow</a>
@@ -78,7 +78,7 @@
 
                         <td class="text-center">
                             <a class="btn btn-info btn-sm mr-1" asp-action="Details" asp-route-id="@item.CodeNumber">Details</a>
-                            @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            @if (Context.User != null && Context.User.Identity != null && Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                             {
                                 <a class="btn btn-primary btn-sm mr-1" asp-action="Edit" asp-route-id="@item.CodeNumber">Edit</a>
                                 <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.CodeNumber">Delete</a>
@@ -95,7 +95,7 @@
     <script>
         $(document).ready(function () {
             // Check if TempData contains past due date information
-        @if (TempData.ContainsKey("PastDueDate") && (bool)TempData["PastDueDate"])
+        @if (TempData.ContainsKey("PastDueDate") && (bool?)TempData["PastDueDate"] == true)
         {
              <text>    
                 // Get the past due book titles from TempData
