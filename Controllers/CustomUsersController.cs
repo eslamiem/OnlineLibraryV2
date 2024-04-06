@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -152,6 +153,17 @@ namespace OnlineLibrary.Controllers
         private bool CustomUserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AssignUserRole(string id)
+        {
+            var customUser = await _context.Users.FindAsync(id);
+
+            if (customUser == null)
+                return null!;
+
+            return View(customUser);
         }
     }
 }

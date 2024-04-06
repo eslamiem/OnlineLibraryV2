@@ -1,0 +1,68 @@
+@page "/update/{id:string   }"
+@inject UserService userService
+@using OnlineLibrary.Models
+@using OnlineLibrary.Data
+@using OnlineLibrary.Services
+@using OnlineLibrary.Components
+@rendermode InteractiveServer
+@inject NavigationManager NavManager
+
+<PageTitle>Update User Role</PageTitle>
+
+@if (CurrentCustomUser != null) // Update
+{
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <EditForm Model="CurrentCustomUser" OnValidSubmit="HandleValidSubmit" FormName="update-transaction-form">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <label for="UserName" class="form-label">UserName:</label>
+                        <InputText id="UserName" class="form-control" @bind-Value="CurrentCustomUser!.UserName" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Email" class="form-label">Email:</label>
+                        <InputText id="Email" class="form-control" @bind-Value="CurrentCustomUser!.Email" disabled />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Assign User Role</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+
+    @code {
+        private async Task HandleValidSubmit()
+        {
+            await userService.UpdateUserRole(CurrentCustomUser!.Id, CurrentCustomUser);
+            NavManager.NavigateTo("/CustomUsers/AssignUserRole");
+        }
+    }
+}
+else
+{
+    <p class="mt-5 text-center">User with ID = @Id not found</p>
+}
+
+@code {
+    [Parameter]
+    public string? Id { get; set; } = null;
+
+    [SupplyParameterFromForm]
+    public CustomUser CurrentCustomUser { get; set;} = new();
+    
+    protected override async Task OnParametersSetAsync() {
+        if (Id is not null) {
+            var customUser = await userService.GetCustomUserByIdAsync(Id!);
+
+            if (customUser is not null) {
+                CurrentCustomUser.Id = customUser.Id;
+                CurrentCustomUser.Email = customUser.Email;
+                CurrentCustomUser.UserName = customUser.UserName;
+            }
+        }
+    } 
+}

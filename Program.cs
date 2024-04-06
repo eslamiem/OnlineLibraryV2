@@ -4,6 +4,7 @@ using OnlineLibrary.Data;
 using OnlineLibrary.Models;
 using OnlineLibrary.Components;
 using OnlineLibrary.Services;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,10 @@ options => {
 .AddDefaultUI()
 .AddDefaultTokenProviders();
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap["string"] = typeof(OnlineLibrary.MyStringRouteConstraint);
+});
 
 builder.Services.AddControllersWithViews();
 

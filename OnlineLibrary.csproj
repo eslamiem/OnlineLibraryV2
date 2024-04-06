@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-OnlineLibrary-ea670552-b54b-497b-908b-6d9d0b2a95e0</UserSecretsId>
-    <NoWarn>CS8618</NoWarn>
+    <NoWarn>CS8767</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

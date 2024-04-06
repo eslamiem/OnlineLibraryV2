@@ -36,6 +36,8 @@ public class BorrowTransaction
         RentalDate = DateTime.Now;
         EndDate = DateTime.Now.AddMonths(1);
         State = BorrowingState.InProgrees;
+        Book = new Book();
+        Borrower = new CustomUser();
     }
 
 

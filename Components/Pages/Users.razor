@@ -15,11 +15,22 @@
 else
 {
     <QuickGrid Items="@users" Pagination="@pagination" class="table table-striped table-hover">
-        <PropertyColumn Property="@(_ => _.FirstName)" Sortable="true" class="text-center" />
+        <PropertyColumn Property="@(_ => _.FirstName)" Sortable="true" />
         <PropertyColumn Property="@(_ => _.LastName)" Sortable="true" />
         <PropertyColumn Property="@(_ => _.Email)" Sortable="true" />
         <PropertyColumn Property="@(_ => _.Country)" Sortable="true" />
-        <PropertyColumn Property="@(_ => _.PostalCode)" Sortable="true" class="text-center" />
+        <PropertyColumn Property="@(_ => _.PostalCode)" Sortable="true"/>
+        <TemplateColumn Title="Actions" >
+            <nobr>
+            <table>
+                <tr>
+                    <td style="width:30%">
+                        <a class="btn btn-primary btn-sm" href="/CustomUsers/AssignUserRole/@context.Id">Assign Role</a>
+                    </td>
+                </tr>
+            </table>
+            </nobr>
+        </TemplateColumn>
     </QuickGrid>
 
     <Paginator State="@pagination" />
@@ -33,6 +44,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         // Retrieve users from UserService
-        IQueryable<CustomUser> users = (await userService.GetUserListAsync()).AsQueryable();
+        users = (await userService.GetUserListAsync()).AsQueryable();
     }
 }

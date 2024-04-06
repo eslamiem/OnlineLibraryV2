@@ -11,11 +11,9 @@ namespace OnlineLibrary.Services;
 public class BookService
 {
     private ApplicationDbContext _context;
-    private readonly UserManager<CustomUser> _userManager;
-    public BookService(ApplicationDbContext context, UserManager<CustomUser> usermanager)
+    public BookService(ApplicationDbContext context)
     {
         _context = context;
-        _userManager = usermanager;
     }
     public async Task<List<BorrowTransaction>> GetPastDueBookListAsync()
     {
