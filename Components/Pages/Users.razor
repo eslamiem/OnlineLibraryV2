@@ -32,7 +32,6 @@ else
     .ByDescending(_ => _.FirstName);
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("Hello World!");
         // Retrieve users from UserService
         IQueryable<CustomUser> users = (await userService.GetUserListAsync()).AsQueryable();
     }

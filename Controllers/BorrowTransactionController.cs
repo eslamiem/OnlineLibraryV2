@@ -123,6 +123,27 @@ namespace OnlineLibrary.Controllers
             }
             return View(nameof(Index));
         }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PastDueDateBookList()
+        {
+            var pastDueDateBooks = await _context.BorrowTransactions
+                                    .Include(b => b.Book)
+                                    .Include(b => b.Borrower)
+                                    .Where(bt => bt.EndDate < DateTime.Now.Date).ToListAsync();
+            return View(pastDueDateBooks);
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateBookDueDate(int id)
+        {
+            var borrowTransaction = await _context.BorrowTransactions!.FindAsync(id);
+
+            if (borrowTransaction == null)
+                return null!;
+
+            return View(borrowTransaction);
+        }
+
     }
 
 }

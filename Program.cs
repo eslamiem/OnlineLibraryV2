@@ -42,6 +42,8 @@ builder.Services
 .AddCircuitOptions(options => options.DetailedErrors = true); // for debugging razor components
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<BookService>();
+
 
 var app = builder.Build();
 

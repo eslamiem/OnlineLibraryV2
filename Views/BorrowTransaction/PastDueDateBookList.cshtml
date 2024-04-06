@@ -1,0 +1,7 @@
+@model IEnumerable<OnlineLibrary.Models.BorrowTransaction>
+
+@{
+    ViewData["Title"] = "Past Due Books";
+}
+
+<component type="typeof(PastDueBooks)" render-mode="ServerPrerendered" />

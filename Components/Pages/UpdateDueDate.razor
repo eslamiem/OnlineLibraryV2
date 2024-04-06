@@ -1,0 +1,68 @@
+@page "/update/{id:int}"
+@inject BookService bookService
+@using OnlineLibrary.Models
+@using OnlineLibrary.Data
+@using OnlineLibrary.Services
+@using OnlineLibrary.Components
+@rendermode InteractiveServer
+@inject NavigationManager NavManager
+
+<PageTitle>Update Due Date</PageTitle>
+
+@if (CurrentBorrowTransaction != null) // Update
+{
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <EditForm Model="CurrentBorrowTransaction" OnValidSubmit="HandleValidSubmit" FormName="update-transaction-form">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <label for="RentalDate" class="form-label">Rental Date:</label>
+                        <InputDate id="RentalDate" class="form-control" @bind-Value="CurrentBorrowTransaction!.RentalDate" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="EndDate" class="form-label">End Date:</label>
+                        <InputDate id="EndDate" class="form-control" @bind-Value="CurrentBorrowTransaction!.EndDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Update Due Date</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+
+    @code {
+        private async Task HandleValidSubmit()
+        {
+            await bookService.UpdateDueDateAsync(CurrentBorrowTransaction!.Id, CurrentBorrowTransaction);
+            NavManager.NavigateTo("/BorrowTransaction/PastDueDateBookList");
+        }
+    }
+}
+else
+{
+    <p class="mt-5 text-center">Transaction with ID = @Id not found</p>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; } = null;
+
+    [SupplyParameterFromForm]
+    public BorrowTransaction CurrentBorrowTransaction { get; set;} = new();
+    
+    protected override async Task OnParametersSetAsync() {
+        if (Id is not null) {
+            var borrowTransaction = await bookService.GetTransactionByIdAsync(Id!.Value);
+
+            if (borrowTransaction is not null) {
+                CurrentBorrowTransaction.Id = borrowTransaction.Id;
+                CurrentBorrowTransaction.EndDate = borrowTransaction.EndDate;
+                CurrentBorrowTransaction.RentalDate = borrowTransaction.RentalDate;
+            }
+        }
+    } 
+}
