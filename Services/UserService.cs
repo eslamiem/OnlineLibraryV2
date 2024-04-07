@@ -31,9 +31,9 @@ public class UserService
     {
         return await _context.Users.FindAsync(id) ?? null;
     }
-    public async Task<CustomUser> UpdateUserRole(string id, CustomUser b)
+    public async Task<CustomUser> UpdateUserRole(string id,CustomUser user)
     {
-        var user = await _context.Users.FindAsync(id);
+        // var user = await _context.Users.FindAsync(id);
 
         if (user == null)
             return null!;
@@ -42,7 +42,12 @@ public class UserService
 
         if (memberRole != null)
         {
-            await _userManager.AddToRoleAsync(user, memberRole.Name!);
+            _context.UserRoles.Add(new IdentityUserRole<string>
+            {
+                UserId = user.Id,
+                RoleId = memberRole.Id
+            });
+            //await _userManager.AddToRoleAsync(user, memberRole.Name!);
             await _context.SaveChangesAsync();
         }
 

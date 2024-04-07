@@ -35,7 +35,7 @@ public class BookService
         if (borrowTransaction == null)
             return null!;
 
-        borrowTransaction.EndDate = b.EndDate;
+        borrowTransaction.EndDate = b.EndDate.Date;
 
         _context.BorrowTransactions.Update(borrowTransaction);
         await _context.SaveChangesAsync();

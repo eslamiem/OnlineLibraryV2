@@ -1,4 +1,4 @@
-@page "/update/{id:string}"
+@page "/assignRole/{id}"
 @inject UserService userService
 @using OnlineLibrary.Models
 @using OnlineLibrary.Data
@@ -28,7 +28,7 @@
                         <InputText id="Email" class="form-control" @bind-Value="CurrentCustomUser!.Email" disabled />
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-primary">Assign User Role</button>
+                    <button type="submit" class="btn btn-primary">Assign Member Role</button>
                 </EditForm>
             </div>
         </div>
@@ -38,7 +38,7 @@
         private async Task HandleValidSubmit()
         {
             await userService.UpdateUserRole(CurrentCustomUser!.Id, CurrentCustomUser);
-            NavManager.NavigateTo("/CustomUsers/AssignUserRole");
+            NavManager.NavigateTo("/CustomUsers/Index");
         }
     }
 }

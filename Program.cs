@@ -34,11 +34,6 @@ options => {
 .AddDefaultUI()
 .AddDefaultTokenProviders();
 
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.ConstraintMap["string"] = typeof(OnlineLibrary.MyStringRouteConstraint);
-});
-
 builder.Services.AddControllersWithViews();
 
 builder.Services
@@ -49,6 +44,10 @@ builder.Services
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BookService>();
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap["string"] = typeof(OnlineLibrary.MyStringRouteConstraint);
+});
 
 var app = builder.Build();
 
@@ -76,6 +75,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 app.MapRazorPages();
 
 app.MapRazorComponents<App>()
